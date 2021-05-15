@@ -8,8 +8,6 @@ RTCDateTime now;
 
 //My Functions Declaration:
 void lessonTime();
-timeUnit getCooldown(timeUnit beginTimer, timeUnit endTimer);
-
 
 //Main Modes Enum for clock:
 enum modes
@@ -25,10 +23,8 @@ unsigned int mainClock;
 
 void displayOnScreen(String hereText);
 
-int wyznacz[3];
 
-
-
+//Edit Varable Declaration:
 uint8_t tempMinutes = 0;
 uint8_t tempHours = 0;
 
@@ -47,7 +43,7 @@ void displayOnScreen(String message)
 
 
 
-modes mainModes = 2;
+modes mainModes = 0;
 
 //Button Declaration
 Button btn1(2);
@@ -72,9 +68,6 @@ void setup()
   
 	clock.begin();  
 }
-
-
-
 
 void loop() 
 { 
@@ -153,20 +146,28 @@ void loop()
 	   {
 		  case 0:
 		  {
-      lessonTime();
-			break;
+			  for(int i=0; i<18; i++)
+				{
+					convertTimeToSec(nowTime);
+					convertTimeToSec(timerArray[i]);
+					
+				  if(convertTimeToSec(timerArray[i]) < convertTimeToSec(nowTime) && convertTimeToSec(timerArray[i+1]) > convertTimeToSec(nowTime))
+				  {
+  					timeUnit result = getCooldown(nowTime, timerArray[i+1]);
+  					Serial.println(String(result.hour) + ":" + String(result.minute) + ":" + String(result.sec));
+				  }
+				}
+			  break;
 		  }
 		  case 1:
 		  {
-			Serial.println(String(now.hour)+"-"+String(now.minute)+"-"+String(now.second));
-			//displayOnScreen(String(now.hour)+"-"+String(now.minute)+"-"+String(now.second));
-			break;
+  			Serial.println(String(now.hour)+"-"+String(now.minute)+"-"+String(now.second));
+  			break;
 		  }
 		  case 2:
 		  {
-			Serial.println(String(now.year)+" - "+String(now.month)+" - "+String(now.day));
-			//displayOnScreen(String(now.year)+String(now.month)+String(now.day));
-			break;
+  			Serial.println(String(now.year)+" - "+String(now.month)+" - "+String(now.day));
+  			break;
 		  } 
 	   }
 		
