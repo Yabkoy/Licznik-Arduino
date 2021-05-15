@@ -29,6 +29,14 @@ uint16_t tempYear = 2021;
 uint8_t tempMonth = 1;
 uint8_t tempDay = 1;
 
+void actionOnSelectButtonClick(String message)
+{
+  Serial.println(message);
+  digitalWrite(7, HIGH);  
+  delay(1000);
+  digitalWrite(7, LOW);  
+}
+
 
 void displayOnScreen(String message)
 {
@@ -75,6 +83,7 @@ void loop()
     
 	if(editMode == false)
 	{
+    //Mode Selecting:
 		if(btn3.getValue() == 0)
 		{
 		   if(mainClock%100 == 0) 
@@ -84,29 +93,27 @@ void loop()
 				case 0:
 				{
 					mainModes = 1;
-          Serial.println("Change to 1");
-          delay(1000);
+          actionOnSelectButtonClick("Change to 1");
 					break;
 				}
 				case 1:
 				{
 					mainModes = 2;
-          Serial.println("Change to 2");
-          delay(1000);
+          actionOnSelectButtonClick("Change to 2");
 					break;
 				}
 				case 2:
 				{
 					mainModes = 0;
-          Serial.println("Change to 0");
-          delay(1000);
+          actionOnSelectButtonClick("Change to 0");
 					break;
 				}
 			  }
 		   }
 
 		}
-		
+   
+		//Entering Edit Mode
 		if(btn1.getValue() == 0 && btn2.getValue() == 0 && btn3.getValue() == 1 && mainModes)
 		{
 			editTimer += 1;
@@ -129,11 +136,9 @@ void loop()
 			tempMinutes = now.minute;
 			tempHours = now.hour;
 			
-			Serial.println("EDIT");
-			digitalWrite(7, HIGH);  
-			delay(1000);
-			digitalWrite(7, LOW);  
+      actionOnSelectButtonClick("EDIT");
 		}
+    //Display for Modes
 	   switch(mainModes)
 	   {
 		  case 0:
@@ -168,6 +173,7 @@ void loop()
 	}
 	else
 	{
+    //Setting Vars:
 		switch(mainModes)
 		{
 			case 1:
@@ -214,14 +220,13 @@ void loop()
 				break;
 			}
 		}
+
+   //Comfirm Func:
 		if(btn3.getValue() == 0)
 		{
 		  editMode = false;  
 		  clock.setDateTime(tempYear, tempMonth, tempDay, tempHours, tempMinutes, 0);
-		  Serial.println("DONE");
-		  digitalWrite(7, HIGH);  
-		  delay(1000);
-		  digitalWrite(7, LOW);  
+      actionOnSelectButtonClick("DONE");
 		}
 
 	}
