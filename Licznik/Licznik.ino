@@ -1,10 +1,19 @@
-//Made By Yabkoy 2018/2019/2020
+//Made By Yabkoy 2018/2019/2020/2021
 #include <LedControl.h>
 #include <DS3231.h>
-
+//Library Varable Declaration: 
 LedControl phisicalClock = LedControl(12,11,10,1);
 DS3231 clock;
 RTCDateTime now;
+
+struct timeUnit
+{
+  int hour;
+  int minute;
+  int sec;  
+};
+
+timeUnit  nowTime ;
 
 float editTimer = 0;
 
@@ -13,7 +22,6 @@ bool editMode = false;
 unsigned int mainClock;
 
 void displayOnScreen(String hereText);
-void checkSecant(int hour1, int hour2, int minute1, int minute2, int wyznacz1, int wyznacz2, int hereType, String mainLetter);
 
 int wyznacz[3];
 
@@ -61,6 +69,8 @@ class Button
     }
 };
 
+
+
 Button btn1(2);
 Button btn2(3);
 Button btn3(4);
@@ -94,45 +104,12 @@ modes mainModes = 2;
 void loop() 
 { 
 
-	if(mainClock%10 == 0) { now = clock.getDateTime(); }
+	if(mainClock%10 == 0) 
+	{ 
+	  now = clock.getDateTime(); 
+    nowTime = {now.hour, now.minute, now.second};
+	}
 
-    //phisicalClock.clearDisplay(0);
-  
-    // Lub recznie (YYYY, MM, DD, HH, II, SS
-    //clock.setDateTime(2020, 9, 15, 10, 14, 00);
-    //clock.setDateTime(2020, 9, 27, 20, 8, 0);
-
-      //1 7 Prep
-      //5 - Przerwy
-      //6 END
-		
-	//#######BUTTONTEST###############
-	// if(btn1.getValue() == 0)
-	// {
-		// digitalWrite(5, HIGH);  
-	// }
-	// else
-	// {
-		// digitalWrite(5, LOW); 
-	// }
-
-	// if(btn2.getValue() == 0)
-	// {
-		// digitalWrite(6, HIGH);  
-	// }
-	// else
-	// {
-		// digitalWrite(6, LOW); 
-	// }
-	// if(btn3.getValue() == 0)
-	// {
-		// digitalWrite(7, HIGH);  
-	// }
-	// else
-	// {
-		// digitalWrite(7, LOW); 
-	// }
-	//#######BUTTONTEST###############
 
 
     
@@ -271,30 +248,6 @@ void loop()
 		}
 
 	}
-
-
-  
-      // checkSecant(7,0,0,0,0,0, 1, NONE);
-      // checkSecant(8,0,-1,45,15,0, 2, LESSON);
-      // checkSecant(8,9,49,35,35,25, 3, LESSON);
-      // checkSecant(9,10,39,25,25,35, 3, LESSON);
-      // checkSecant(10,11,44,30,30,30, 3, LESSON);
-      // checkSecant(11,12,39,25,25,35, 3, LESSON);
-      // checkSecant(12,13,34,20,20,40, 3, LESSON);
-      // checkSecant(13,14,24,10,10,50, 3, LESSON);
-      // checkSecant(14,0,14,0,0,0, 4, LESSON);
-      
-      // checkSecant(15,0,4,50,10,0, 5, LESSON); //LESSON
-      
-      // checkSecant(8,0,44,50,10,0, 5, PAUSE);
-      // checkSecant(9,0,34,40,20,0, 5, PAUSE);
-      // checkSecant(10,0,24,45,15,0, 5, PAUSE);
-      // checkSecant(11,0,29,40,20,0, 5, PAUSE);
-      // checkSecant(12,0,24,35,25,0, 5, PAUSE);
-      // checkSecant(13,0,19,25,35,0, 5, PAUSE);
-      // checkSecant(14,0,9,15,45,0, 5, PAUSE);
-      // checkSecant(15,0,-1,5,55,0, 5, PAUSE);
-      // checkSecant(16,7,49,5,0,0, 6, NONE);
       mainClock++;
 
 }

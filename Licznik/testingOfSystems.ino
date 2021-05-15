@@ -1,4 +1,34 @@
-void testMode(int forSwitch)
+
+void testButtonWorking()
+{
+	if(btn1.getValue() == 0)
+	{
+		digitalWrite(5, HIGH);  
+	}
+	else
+	{
+		digitalWrite(5, LOW); 
+	}
+
+	if(btn2.getValue() == 0)
+	{
+		digitalWrite(6, HIGH);  
+	}
+	else
+	{
+		digitalWrite(6, LOW); 
+	}
+	if(btn3.getValue() == 0)
+	{
+		digitalWrite(7, HIGH);  
+	}
+	else
+	{
+		digitalWrite(7, LOW); 
+	}
+}
+
+void testClockSetTime(int forSwitch)
 {
     switch(forSwitch)
     {
