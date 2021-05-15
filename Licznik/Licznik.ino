@@ -1,19 +1,21 @@
 //Made By Yabkoy 2018/2019/2020/2021
-#include <LedControl.h>
-#include <DS3231.h>
+#include "libs.h"
+
 //Library Varable Declaration: 
 LedControl phisicalClock = LedControl(12,11,10,1);
 DS3231 clock;
 RTCDateTime now;
 
-struct timeUnit
-{
-  int hour;
-  int minute;
-  int sec;  
-};
+//My Functions Declaration:
+void lessonTime();
+timeUnit getCooldown(timeUnit beginTimer, timeUnit endTimer);
 
-timeUnit  nowTime ;
+
+//Main Modes Enum for clock:
+enum modes
+{
+  TIMER = 0, CLOCK = 1, DATE = 2,
+};
 
 float editTimer = 0;
 
@@ -26,15 +28,6 @@ void displayOnScreen(String hereText);
 int wyznacz[3];
 
 
-enum stateOfLetter
-{
-	PAUSE = 0, LESSON = 1
-};
-
-enum modes
-{
-  TIMER = 0, CLOCK = 1, DATE = 2,
-};
 
 uint8_t tempMinutes = 0;
 uint8_t tempHours = 0;
@@ -52,35 +45,18 @@ void displayOnScreen(String message)
   }
 }
 
-//Classes Button: 
-class Button
-{
-  private:
-    uint8_t pin;
-  public:
-    Button(const uint8_t& pin) : pin(pin)
-    {
-      pinMode(pin, INPUT_PULLUP); 
-    }
-    
-    uint8_t getValue() const
-    {
-      return digitalRead(pin);  
-    }
-};
 
 
+modes mainModes = 2;
 
+//Button Declaration
 Button btn1(2);
 Button btn2(3);
 Button btn3(4);
 
-
-
-
+//Setup
 void setup() 
 {
-  
 	Serial.begin(9600);
 	
 	phisicalClock.shutdown(0,false);
@@ -94,11 +70,10 @@ void setup()
 	pinMode(7, OUTPUT);
 
   
-  clock.begin();  
+	clock.begin();  
 }
 
 
-modes mainModes = 2;
 
 
 void loop() 
@@ -106,8 +81,8 @@ void loop()
 
 	if(mainClock%10 == 0) 
 	{ 
-	  now = clock.getDateTime(); 
-    nowTime = {now.hour, now.minute, now.second};
+		now = clock.getDateTime(); 
+		nowTime = {now.hour, now.minute, now.second};
 	}
 
 
@@ -124,16 +99,22 @@ void loop()
 				case 0:
 				{
 					mainModes = 1;
+          Serial.println("Change to 1");
+          delay(1000);
 					break;
 				}
 				case 1:
 				{
 					mainModes = 2;
+          Serial.println("Change to 2");
+          delay(1000);
 					break;
 				}
 				case 2:
 				{
 					mainModes = 0;
+          Serial.println("Change to 0");
+          delay(1000);
 					break;
 				}
 			  }
@@ -172,6 +153,7 @@ void loop()
 	   {
 		  case 0:
 		  {
+      lessonTime();
 			break;
 		  }
 		  case 1:
