@@ -1,22 +1,5 @@
 #include "libs.h"
 
-void lessonTime()
-{
-  for(int i=0; i<19; i++)
-  {
-    if(
-      timerArray[i].hour < nowTime.hour && timerArray[i+1].hour > nowTime.hour &&
-      timerArray[i].minute < nowTime.minute && timerArray[i+1].minute > nowTime.minute &&
-      timerArray[i].sec < nowTime.sec && timerArray[i+1].sec > nowTime.sec
-      )
-    {
-      timeUnit result = getCooldown(nowTime, timerArray[i+1]);
-      Serial.println(String(result.hour) + ":" + String(result.minute) + ":" + String(result.sec));
-    }
-  }
-}
-
-
 timeUnit getCooldown(timeUnit beginTimer, timeUnit endTimer)
 {
   uint32_t totalTime[2];

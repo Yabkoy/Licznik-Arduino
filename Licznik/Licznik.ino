@@ -6,9 +6,6 @@ LedControl phisicalClock = LedControl(12,11,10,1);
 DS3231 clock;
 RTCDateTime now;
 
-//My Functions Declaration:
-void lessonTime();
-
 //Main Modes Enum for clock:
 enum modes
 {
@@ -40,8 +37,6 @@ void displayOnScreen(String message)
     phisicalClock.setChar(0,i,message.charAt(7-i),false);
   }
 }
-
-
 
 modes mainModes = 0;
 
@@ -77,9 +72,6 @@ void loop()
 		now = clock.getDateTime(); 
 		nowTime = {now.hour, now.minute, now.second};
 	}
-
-
-
     
 	if(editMode == false)
 	{
@@ -148,14 +140,16 @@ void loop()
 		  {
 			  for(int i=0; i<18; i++)
 				{
-					convertTimeToSec(nowTime);
-					convertTimeToSec(timerArray[i]);
-					
-				  if(convertTimeToSec(timerArray[i]) < convertTimeToSec(nowTime) && convertTimeToSec(timerArray[i+1]) > convertTimeToSec(nowTime))
-				  {
-  					timeUnit result = getCooldown(nowTime, timerArray[i+1]);
-  					Serial.println(String(result.hour) + ":" + String(result.minute) + ":" + String(result.sec));
-				  }
+					if(convertTimeToSec(timerArray[i]) < convertTimeToSec(nowTime) && convertTimeToSec(timerArray[i+1]) > convertTimeToSec(nowTime))
+					{
+						timeUnit result = getCooldown(nowTime, timerArray[i+1]);
+
+            String strHour = (result.hour < 10)? "0"+String(result.hour) : String(result.hour);
+            String strMinute = (result.minute < 10)? "0"+String(result.minute) : String(result.minute);
+            String strSec = (result.sec < 10)? "0"+String(result.sec) : String(result.sec);
+            
+						Serial.println(strHour + ":" + strMinute + ":" + strSec);
+					}
 				}
 			  break;
 		  }
