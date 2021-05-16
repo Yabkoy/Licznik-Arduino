@@ -29,13 +29,7 @@ uint16_t tempYear = 2021;
 uint8_t tempMonth = 1;
 uint8_t tempDay = 1;
 
-void actionOnSelectButtonClick(String message)
-{
-  Serial.println(message);
-  digitalWrite(7, HIGH);  
-  delay(1000);
-  digitalWrite(7, LOW);  
-}
+
 
 
 void displayOnScreen(String message)
@@ -44,6 +38,15 @@ void displayOnScreen(String message)
   {
     phisicalClock.setChar(0,i,message.charAt(7-i),false);
   }
+}
+
+void actionOnSelectButtonClick(String message)
+{
+  displayOnScreen(message);
+  Serial.println(message);
+  digitalWrite(7, HIGH);  
+  delay(1000);
+  digitalWrite(7, LOW);  
 }
 
 modes mainModes = 0;
@@ -93,19 +96,19 @@ void loop()
 				case 0:
 				{
 					mainModes = 1;
-          actionOnSelectButtonClick("Change to 1");
+          actionOnSelectButtonClick("--CZAS--");
 					break;
 				}
 				case 1:
 				{
 					mainModes = 2;
-          actionOnSelectButtonClick("Change to 2");
+          actionOnSelectButtonClick("--DATe--");
 					break;
 				}
 				case 2:
 				{
 					mainModes = 0;
-          actionOnSelectButtonClick("Change to 0");
+          actionOnSelectButtonClick("-COUTER-");
 					break;
 				}
 			  }
@@ -154,6 +157,7 @@ void loop()
             String strSec = (result.sec < 10)? "0"+String(result.sec) : String(result.sec);
             
 						Serial.println(strHour + ":" + strMinute + ":" + strSec);
+            displayOnScreen(strHour + "-" + strMinute + "-" + strSec);
 					}
 				}
 			  break;
@@ -161,11 +165,18 @@ void loop()
 		  case 1:
 		  {
   			Serial.println(String(now.hour)+"-"+String(now.minute)+"-"+String(now.second));
+
+        String strHour = (nowTime.hour < 10)? "0"+String(nowTime.hour) : String(nowTime.hour);
+        String strMinute = (nowTime.minute < 10)? "0"+String(nowTime.minute) : String(nowTime.minute);
+        String strSec = (nowTime.sec < 10)? "0"+String(nowTime.sec) : String(nowTime.sec);
+       
+        displayOnScreen(strHour+"-"+strMinute+"-"+strSec);
   			break;
 		  }
 		  case 2:
 		  {
-  			Serial.println(String(now.year)+" - "+String(now.month)+" - "+String(now.day));
+  			Serial.println(String(now.year)+"."+String(now.month)+"."+String(now.day));
+        displayOnScreen(String(now.year)+"."+String(now.month)+"."+String(now.day));
   			break;
 		  } 
 	   }
@@ -191,6 +202,7 @@ void loop()
 					tempHours = 0;
 				}
 				Serial.println(String(tempHours)+"-"+String(tempMinutes));
+        displayOnScreen(String(tempHours)+"-"+String(tempMinutes));
 				
 				break;
 			}
@@ -216,6 +228,7 @@ void loop()
 				}
 				
 				Serial.println(String(tempYear)+" - "+String(tempMonth)+" - "+String(tempDay));
+        displayOnScreen(String(tempYear)+" - "+String(tempMonth)+" - "+String(tempDay));
 				
 				break;
 			}
