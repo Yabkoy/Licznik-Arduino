@@ -54,7 +54,7 @@ void displayOnScreen(String message)
 void actionOnSelectButtonClick(String message)
 {
   displayOnScreen(message);
-  Serial.println(message);
+  //SERIAL(Serial.println(message);
   digitalWrite(7, HIGH);  
   delay(1000);
   digitalWrite(7, LOW);  
@@ -70,7 +70,6 @@ Button btn3(4);
 //Setup
 void setup() 
 {
-	Serial.begin(9600);
 	
 	phisicalClock.shutdown(0,false);
 	
@@ -84,6 +83,11 @@ void setup()
 
   
 	clock.begin();  
+}
+
+String insertZero(uint8_t number)
+{
+	return (number < 10)? "0"+String(number) : String(number);
 }
 
 void loop() 
@@ -100,30 +104,29 @@ void loop()
     //Mode Selecting:
 		if(btn3.getValue() == 0)
 		{
-		   if(mainClock%100 == 0) 
-		   {
-			  switch(mainModes)
-			  {
-				case 0:
-				{
-					mainModes = 1;
-          actionOnSelectButtonClick("--CZAS--");
-					break;
-				}
-				case 1:
-				{
-					mainModes = 2;
-          actionOnSelectButtonClick("--DATe--");
-					break;
-				}
-				case 2:
-				{
-					mainModes = 0;
-          actionOnSelectButtonClick("-COUTER-");
-					break;
-				}
-			  }
-		   }
+
+		  switch(mainModes)
+		  {
+			case 0:
+			{
+				mainModes = 1;
+				actionOnSelectButtonClick("--CZAS--");
+				break;
+			}
+			case 1:
+			{
+				mainModes = 2;
+				actionOnSelectButtonClick("--DATA--");
+				break;
+			}
+			case 2:
+			{
+				mainModes = 0;
+				actionOnSelectButtonClick("-COUNT--");
+				break;
+			}
+		  }
+		   
 
 		}
    
@@ -150,7 +153,7 @@ void loop()
 			tempMinutes = now.minute;
 			tempHours = now.hour;
 			
-      actionOnSelectButtonClick("EDIT");
+      actionOnSelectButtonClick("--EDIT--");
 		}
     //Display for Modes
 	   switch(mainModes)
@@ -163,31 +166,36 @@ void loop()
 					{
 						timeUnit result = getCooldown(nowTime, timerArray[i+1]);
 
-            String strHour = (result.hour < 10)? "0"+String(result.hour) : String(result.hour);
-            String strMinute = (result.minute < 10)? "0"+String(result.minute) : String(result.minute);
-            String strSec = (result.sec < 10)? "0"+String(result.sec) : String(result.sec);
-            
-						Serial.println(strHour + ":" + strMinute + ":" + strSec);
-            displayOnScreen(strHour + "-" + strMinute + "-" + strSec);
+						// String strHour = (result.hour < 10)? "0"+String(result.hour) : String(result.hour);
+						// String strMinute = (result.minute < 10)? "0"+String(result.minute) : String(result.minute);
+						// String strSec = (result.sec < 10)? "0"+String(result.sec) : String(result.sec);
+						
+						//SERIALSerial.println(strHour + ":" + strMinute + ":" + strSec);
+						displayOnScreen("--" + insertZero(result.minute) + "." + insertZero(result.sec)+ "--");
 					}
+         else
+         {
+           //SERIAL(Serial.println("NO LESSON"));
+           //displayOnScreen("NO.LESSON");
+         }
 				}
 			  break;
 		  }
 		  case 1:
 		  {
-  			Serial.println(String(now.hour)+"-"+String(now.minute)+"-"+String(now.second));
+  			//SERIAL(Serial.println(String(now.hour)+"-"+String(now.minute)+"-"+String(now.second)));
 
-        String strHour = (nowTime.hour < 10)? "0"+String(nowTime.hour) : String(nowTime.hour);
-        String strMinute = (nowTime.minute < 10)? "0"+String(nowTime.minute) : String(nowTime.minute);
-        String strSec = (nowTime.sec < 10)? "0"+String(nowTime.sec) : String(nowTime.sec);
+			// String strHour = (nowTime.hour < 10)? "0"+String(nowTime.hour) : String(nowTime.hour);
+			// String strMinute = (nowTime.minute < 10)? "0"+String(nowTime.minute) : String(nowTime.minute);
+			// String strSec = (nowTime.sec < 10)? "0"+String(nowTime.sec) : String(nowTime.sec);
        
-        displayOnScreen(strHour+"-"+strMinute+"-"+strSec);
+        displayOnScreen(insertZero(nowTime.hour)+"-"+insertZero(nowTime.minute)+"-"+insertZero(nowTime.sec));
   			break;
 		  }
 		  case 2:
 		  {
-  			Serial.println(String(now.year)+"."+String(now.month)+"."+String(now.day));
-        displayOnScreen(String(now.year)+"."+String(now.month)+"."+String(now.day));
+  			//SERIAL(Serial.println(String(now.year)+"."+String(now.month)+"."+String(now.day)));
+			displayOnScreen(String(now.year)+"."+insertZero(now.month)+"."+insertZero(now.day));
   			break;
 		  } 
 	   }
@@ -200,46 +208,46 @@ void loop()
 		{
 			case 1:
 			{
-				if(btn1.getValue() == 0 && mainClock%15 == 0)
+				if(btn1.getValue() == 0 && mainClock%35 == 0)
 				{
 				  tempMinutes++;
 				  if(tempMinutes > 59)
 					tempMinutes = 0;
 				}
-				if(btn2.getValue() == 0 && mainClock% 15== 0)
+				if(btn2.getValue() == 0 && mainClock%50== 0)
 				{
 				  tempHours++;
 				  if(tempHours > 23)
 					tempHours = 0;
 				}
-				Serial.println(String(tempHours)+"-"+String(tempMinutes));
-        displayOnScreen(String(tempHours)+"-"+String(tempMinutes));
+				//SERIAL(Serial.println(String(tempHours)+"-"+String(tempMinutes)));
+				displayOnScreen("--"+insertZero(tempHours)+"."+insertZero(tempMinutes)+"--");
 				
 				break;
 			}
 			case 2:
 			{
-				if(btn1.getValue() == 0 && btn2.getValue() == 0 && mainClock% 15== 0)
+				if(btn1.getValue() == 0 && btn2.getValue() == 0 && mainClock% 35== 0)
 				{
 				  tempYear++;
 				  if(tempYear > 2037)
 					tempYear = 2021;
 				}
-				if(btn1.getValue() == 0 && btn2.getValue() == 1 && mainClock%15 == 0)
+				if(btn1.getValue() == 1 && btn2.getValue() == 0 && mainClock%35 == 0)
 				{
 				  tempMonth++;
 				  if(tempMonth > 12)
 					tempMonth = 1;
 				}
-				if(btn2.getValue() == 0 && btn1.getValue() == 1 && mainClock% 15== 0)
+				if(btn1.getValue() == 0 && btn2.getValue() == 1 && mainClock% 35== 0)
 				{
 				  tempDay++;
 				  if(tempDay > 31)
 					tempDay = 1;
 				}
 				
-				Serial.println(String(tempYear)+" - "+String(tempMonth)+" - "+String(tempDay));
-        displayOnScreen(String(tempYear)+" - "+String(tempMonth)+" - "+String(tempDay));
+				//SERIAL(Serial.println(String(tempYear)+" - "+String(tempMonth)+" - "+String(tempDay)));
+				displayOnScreen(String(tempYear)+"."+insertZero(tempMonth)+"."+insertZero(tempDay));
 				
 				break;
 			}
@@ -250,7 +258,7 @@ void loop()
 		{
 		  editMode = false;  
 		  clock.setDateTime(tempYear, tempMonth, tempDay, tempHours, tempMinutes, 0);
-      actionOnSelectButtonClick("DONE");
+      actionOnSelectButtonClick("--DONE--");
 		}
 
 	}
