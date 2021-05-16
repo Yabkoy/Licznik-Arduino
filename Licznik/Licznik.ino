@@ -34,9 +34,20 @@ uint8_t tempDay = 1;
 
 void displayOnScreen(String message)
 {
-  for(int i=0; i<=7; i++)
+  for(int i=0; i<8; i++)
   {
-    phisicalClock.setChar(0,i,message.charAt(7-i),false);
+    bool dpValue;
+    if(message[i+1] == '.')
+    {
+      dpValue = true;
+      message.remove(i+1, 1);
+    }
+    else
+    {
+      dpValue = false;
+    }
+    
+    phisicalClock.setChar(0,7-i,message[i],dpValue);
   }
 }
 
