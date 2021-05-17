@@ -11,17 +11,14 @@ enum modes
 {
   TIMER = 0, CLOCK = 1, DATE = 2,
 };
+//myClock Vable Declaration:
+uint8_t mainClock;
 
-float editTimer = 0;
-
+//Edit menagement Varable Declaration:
+uint8_t editTimer = 0;
 bool editMode = false;
 
-unsigned int mainClock;
-
-void displayOnScreen(String hereText);
-
-
-//Edit Varable Declaration:
+//Edit Time Varable Declaration:
 uint8_t tempMinutes = 0;
 uint8_t tempHours = 0;
 
@@ -29,9 +26,7 @@ uint16_t tempYear = 2021;
 uint8_t tempMonth = 1;
 uint8_t tempDay = 1;
 
-
-
-
+//Display string on display
 void displayOnScreen(String message)
 {
   for(int i=0; i<8; i++)
@@ -51,21 +46,28 @@ void displayOnScreen(String message)
   }
 }
 
+//Mode selecting function
 void actionOnSelectButtonClick(String message)
 {
   displayOnScreen(message);
-  //SERIAL(Serial.println(message);
   digitalWrite(7, HIGH);  
   delay(1000);
   digitalWrite(7, LOW);  
 }
 
-modes mainModes = 0;
+//Zero inserting in number below 10
+String insertZero(uint8_t number)
+{
+	return (number < 10)? "0"+String(number) : String(number);
+}
 
 //Button Declaration
 Button btn1(2);
 Button btn2(3);
 Button btn3(4);
+
+//Main Enum Mode declaration
+modes mainModes = 0;
 
 //Setup
 void setup() 
@@ -85,20 +87,16 @@ void setup()
 	clock.begin();  
 }
 
-String insertZero(uint8_t number)
-{
-	return (number < 10)? "0"+String(number) : String(number);
-}
-
+//Main Loop
 void loop() 
 { 
-
+  //Clock variable updating;
 	if(mainClock%10 == 0) 
 	{ 
 		now = clock.getDateTime(); 
 		nowTime = {now.hour, now.minute, now.second};
 	}
-    
+  //In non-edit mode:
 	if(editMode == false)
 	{
     //Mode Selecting:
@@ -160,48 +158,48 @@ void loop()
 	   {
 		  case 0:
 		  {
-			  for(int i=0; i<18; i++)
+			static bool hasBeen = false;
+			for(int i=0; i<18; i++)
+			{
+				if(convertTimeToSec(timerArray[i]) < convertTimeToSec(nowTime) && convertTimeToSec(timerArray[i+1]) > convertTimeToSec(nowTime))
 				{
-					if(convertTimeToSec(timerArray[i]) < convertTimeToSec(nowTime) && convertTimeToSec(timerArray[i+1]) > convertTimeToSec(nowTime))
-					{
-						timeUnit result = getCooldown(nowTime, timerArray[i+1]);
+					timeUnit result = getCooldown(nowTime, timerArray[i+1]);
 
-						// String strHour = (result.hour < 10)? "0"+String(result.hour) : String(result.hour);
-						// String strMinute = (result.minute < 10)? "0"+String(result.minute) : String(result.minute);
-						// String strSec = (result.sec < 10)? "0"+String(result.sec) : String(result.sec);
-						
-						//SERIALSerial.println(strHour + ":" + strMinute + ":" + strSec);
-						displayOnScreen("--" + insertZero(result.minute) + "." + insertZero(result.sec)+ "--");
-					}
-         else
-         {
-           //SERIAL(Serial.println("NO LESSON"));
-           //displayOnScreen("NO.LESSON");
-         }
+					// String strHour = (result.hour < 10)? "0"+String(result.hour) : String(result.hour);
+					// String strMinute = (result.minute < 10)? "0"+String(result.minute) : String(result.minute);
+					// String strSec = (result.sec < 10)? "0"+String(result.sec) : String(result.sec);
+					
+					//SERIALSerial.println(strHour + ":" + strMinute + ":" + strSec);
+					displayOnScreen("--" + insertZero(result.minute) + "." + insertZero(result.sec)+ "--");
+					hasBeen = true;
 				}
-			  break;
+			}
+			if(!hasBeen)
+			{
+				displayOnScreen("NO.LESSON");
+			}
+			if(hasBeen == true)
+      {
+        hasBeen = false;
+      }
+			
+			
+			break;
 		  }
 		  case 1:
 		  {
-  			//SERIAL(Serial.println(String(now.hour)+"-"+String(now.minute)+"-"+String(now.second)));
-
-			// String strHour = (nowTime.hour < 10)? "0"+String(nowTime.hour) : String(nowTime.hour);
-			// String strMinute = (nowTime.minute < 10)? "0"+String(nowTime.minute) : String(nowTime.minute);
-			// String strSec = (nowTime.sec < 10)? "0"+String(nowTime.sec) : String(nowTime.sec);
-       
-        displayOnScreen(insertZero(nowTime.hour)+"-"+insertZero(nowTime.minute)+"-"+insertZero(nowTime.sec));
-  			break;
+			displayOnScreen(insertZero(nowTime.hour)+"-"+insertZero(nowTime.minute)+"-"+insertZero(nowTime.sec));
+			break;
 		  }
 		  case 2:
 		  {
-  			//SERIAL(Serial.println(String(now.year)+"."+String(now.month)+"."+String(now.day)));
 			displayOnScreen(String(now.year)+"."+insertZero(now.month)+"."+insertZero(now.day));
   			break;
 		  } 
 	   }
 		
 	}
-	else
+	else //EDIT MODE:
 	{
     //Setting Vars:
 		switch(mainModes)
@@ -258,7 +256,7 @@ void loop()
 		{
 		  editMode = false;  
 		  clock.setDateTime(tempYear, tempMonth, tempDay, tempHours, tempMinutes, 0);
-      actionOnSelectButtonClick("--DONE--");
+		  actionOnSelectButtonClick("--DONE--");
 		}
 
 	}
