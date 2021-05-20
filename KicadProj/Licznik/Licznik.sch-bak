@@ -159,50 +159,6 @@ F 3 "" H 5400 1700 50  0001 C CNN
 	1    5400 1700
 	0    1    1    0   
 $EndComp
-$Comp
-L power:GND #PWR04
-U 1 1 60A9581C
-P 3200 3150
-F 0 "#PWR04" H 3200 2900 50  0001 C CNN
-F 1 "GND" H 3205 2977 50  0000 C CNN
-F 2 "" H 3200 3150 50  0001 C CNN
-F 3 "" H 3200 3150 50  0001 C CNN
-	1    3200 3150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR03
-U 1 1 60A95B6D
-P 3100 3150
-F 0 "#PWR03" H 3100 2900 50  0001 C CNN
-F 1 "GND" H 3105 2977 50  0000 C CNN
-F 2 "" H 3100 3150 50  0001 C CNN
-F 3 "" H 3100 3150 50  0001 C CNN
-	1    3100 3150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR02
-U 1 1 60A96050
-P 3000 3150
-F 0 "#PWR02" H 3000 2900 50  0001 C CNN
-F 1 "GND" H 3005 2977 50  0000 C CNN
-F 2 "" H 3000 3150 50  0001 C CNN
-F 3 "" H 3000 3150 50  0001 C CNN
-	1    3000 3150
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:LED D1
-U 1 1 60A96804
-P 2700 2700
-F 0 "D1" H 2693 2917 50  0000 C CNN
-F 1 "LED" H 2693 2826 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 2700 2700 50  0001 C CNN
-F 3 "~" H 2700 2700 50  0001 C CNN
-	1    2700 2700
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	4400 2600 5000 2600
 Wire Wire Line
@@ -226,19 +182,6 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega328_P%20AVR%20MCU%20w
 	1    3900 1700
 	0    1    1    0   
 $EndComp
-$Comp
-L Device:R R2
-U 1 1 60A9C9F2
-P 2700 3200
-F 0 "R2" H 2770 3246 50  0000 L CNN
-F 1 "R" H 2770 3155 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2630 3200 50  0001 C CNN
-F 3 "~" H 2700 3200 50  0001 C CNN
-	1    2700 3200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2700 2850 2700 3050
 $Comp
 L power:GND #PWR013
 U 1 1 60A9E3BD
@@ -281,8 +224,6 @@ Wire Wire Line
 	3700 2300 3700 2550
 Wire Wire Line
 	3600 2300 3600 2550
-Wire Wire Line
-	2700 2300 2700 2550
 Wire Wire Line
 	4700 2300 4700 2450
 $Comp
@@ -380,32 +321,14 @@ Wire Wire Line
 Connection ~ 2400 2000
 Connection ~ 2700 3350
 Wire Wire Line
-	3000 2950 3000 3100
-Wire Wire Line
 	3100 2950 3100 3100
-Wire Wire Line
-	3200 2950 3200 3100
-Wire Wire Line
-	3200 3100 3100 3100
-Connection ~ 3200 3100
-Wire Wire Line
-	3200 3100 3200 3150
 Connection ~ 3100 3100
 Wire Wire Line
 	3100 3100 3100 3150
 Wire Wire Line
-	3100 3100 3000 3100
-Connection ~ 3000 3100
-Wire Wire Line
-	3000 3100 3000 3150
-Wire Wire Line
-	3000 3100 2850 3100
-Wire Wire Line
 	2850 3100 2850 3350
 Wire Wire Line
 	2850 3350 2700 3350
-Wire Wire Line
-	3350 3100 3200 3100
 $Comp
 L power:GND #PWR07
 U 1 1 60A84ACF
@@ -528,17 +451,6 @@ Wire Wire Line
 Wire Wire Line
 	3000 2300 3000 2400
 $Comp
-L Connector:Conn_01x01_Male J10
-U 1 1 60AF0E19
-P 3200 2750
-F 0 "J10" V 3262 2794 50  0000 L CNN
-F 1 "-" V 3353 2794 50  0000 L CNN
-F 2 "Connector_PinSocket_2.00mm:PinSocket_1x01_P2.00mm_Vertical" H 3200 2750 50  0001 C CNN
-F 3 "~" H 3200 2750 50  0001 C CNN
-	1    3200 2750
-	0    1    1    0   
-$EndComp
-$Comp
 L Connector:Conn_01x01_Male J8
 U 1 1 60AF0E1F
 P 3100 2750
@@ -549,15 +461,43 @@ F 3 "~" H 3100 2750 50  0001 C CNN
 	1    3100 2750
 	0    1    1    0   
 $EndComp
+Wire Wire Line
+	3100 3100 3350 3100
 $Comp
-L Connector:Conn_01x01_Male J6
-U 1 1 60AF0E25
-P 3000 2750
-F 0 "J6" V 3062 2794 50  0000 L CNN
-F 1 "-" V 3153 2794 50  0000 L CNN
-F 2 "Connector_PinSocket_2.00mm:PinSocket_1x01_P2.00mm_Vertical" H 3000 2750 50  0001 C CNN
-F 3 "~" H 3000 2750 50  0001 C CNN
-	1    3000 2750
-	0    1    1    0   
+L power:GND #PWR03
+U 1 1 60A95B6D
+P 3100 3150
+F 0 "#PWR03" H 3100 2900 50  0001 C CNN
+F 1 "GND" H 3105 2977 50  0000 C CNN
+F 2 "" H 3100 3150 50  0001 C CNN
+F 3 "" H 3100 3150 50  0001 C CNN
+	1    3100 3150
+	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	2850 3100 3100 3100
+$Comp
+L Device:LED D1
+U 1 1 60A96804
+P 2700 2750
+F 0 "D1" H 2693 2967 50  0000 C CNN
+F 1 "LED" H 2693 2876 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 2700 2750 50  0001 C CNN
+F 3 "~" H 2700 2750 50  0001 C CNN
+	1    2700 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 60A9C9F2
+P 2700 2450
+F 0 "R2" H 2770 2496 50  0000 L CNN
+F 1 "R" H 2770 2405 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2630 2450 50  0001 C CNN
+F 3 "~" H 2700 2450 50  0001 C CNN
+	1    2700 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2700 2900 2700 3350
 $EndSCHEMATC

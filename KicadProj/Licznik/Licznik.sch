@@ -51,17 +51,6 @@ Wire Wire Line
 Wire Wire Line
 	10550 850  10550 1100
 $Comp
-L Device:Crystal Y1
-U 1 1 60A70F29
-P 5150 3150
-F 0 "Y1" H 5150 2882 50  0000 C CNN
-F 1 "Crystal" H 5150 2973 50  0000 C CNN
-F 2 "Crystal:Crystal_HC52-6mm_Vertical" H 5150 3150 50  0001 C CNN
-F 3 "~" H 5150 3150 50  0001 C CNN
-	1    5150 3150
-	-1   0    0    1   
-$EndComp
-$Comp
 L Device:C C2
 U 1 1 60A72311
 P 5450 2800
@@ -159,19 +148,6 @@ F 3 "" H 5400 1700 50  0001 C CNN
 	1    5400 1700
 	0    1    1    0   
 $EndComp
-$Comp
-L Device:LED D1
-U 1 1 60A96804
-P 2700 2700
-F 0 "D1" H 2693 2917 50  0000 C CNN
-F 1 "LED" H 2693 2826 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 2700 2700 50  0001 C CNN
-F 3 "~" H 2700 2700 50  0001 C CNN
-	1    2700 2700
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	4400 2600 5000 2600
 Wire Wire Line
 	4500 2500 5300 2500
 Wire Wire Line
@@ -194,27 +170,14 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega328_P%20AVR%20MCU%20w
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R2
-U 1 1 60A9C9F2
-P 2700 3200
-F 0 "R2" H 2770 3246 50  0000 L CNN
-F 1 "R" H 2770 3155 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2630 3200 50  0001 C CNN
-F 3 "~" H 2700 3200 50  0001 C CNN
-	1    2700 3200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2700 2850 2700 3050
-$Comp
 L power:GND #PWR013
 U 1 1 60A9E3BD
-P 2700 3350
-F 0 "#PWR013" H 2700 3100 50  0001 C CNN
-F 1 "GND" H 2705 3177 50  0000 C CNN
-F 2 "" H 2700 3350 50  0001 C CNN
-F 3 "" H 2700 3350 50  0001 C CNN
-	1    2700 3350
+P 2700 3100
+F 0 "#PWR013" H 2700 2850 50  0001 C CNN
+F 1 "GND" H 2705 2927 50  0000 C CNN
+F 2 "" H 2700 3100 50  0001 C CNN
+F 3 "" H 2700 3100 50  0001 C CNN
+	1    2700 3100
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -248,8 +211,6 @@ Wire Wire Line
 	3700 2300 3700 2550
 Wire Wire Line
 	3600 2300 3600 2550
-Wire Wire Line
-	2700 2300 2700 2550
 Wire Wire Line
 	4700 2300 4700 2450
 $Comp
@@ -342,19 +303,12 @@ Wire Wire Line
 Connection ~ 2400 1700
 Wire Wire Line
 	2400 2000 2400 3350
-Wire Wire Line
-	2400 3350 2700 3350
 Connection ~ 2400 2000
-Connection ~ 2700 3350
 Wire Wire Line
 	3100 2950 3100 3100
 Connection ~ 3100 3100
 Wire Wire Line
 	3100 3100 3100 3150
-Wire Wire Line
-	2850 3100 2850 3350
-Wire Wire Line
-	2850 3350 2700 3350
 $Comp
 L power:GND #PWR07
 U 1 1 60A84ACF
@@ -370,10 +324,7 @@ Wire Wire Line
 	5600 2800 5600 3350
 Wire Wire Line
 	5600 3350 4700 3350
-Wire Wire Line
-	4700 3350 4700 2800
 Connection ~ 5600 2800
-Connection ~ 4700 2800
 Wire Wire Line
 	3800 3200 3800 3250
 Wire Wire Line
@@ -487,8 +438,6 @@ F 3 "~" H 3100 2750 50  0001 C CNN
 	1    3100 2750
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	3100 3100 3350 3100
 $Comp
 L power:GND #PWR03
 U 1 1 60A95B6D
@@ -500,6 +449,50 @@ F 3 "" H 3100 3150 50  0001 C CNN
 	1    3100 3150
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:LED D1
+U 1 1 60A96804
+P 2700 2750
+F 0 "D1" H 2693 2967 50  0000 C CNN
+F 1 "LED" H 2693 2876 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 2700 2750 50  0001 C CNN
+F 3 "~" H 2700 2750 50  0001 C CNN
+	1    2700 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 60A9C9F2
+P 2700 2450
+F 0 "R2" H 2770 2496 50  0000 L CNN
+F 1 "R" H 2770 2405 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2630 2450 50  0001 C CNN
+F 3 "~" H 2700 2450 50  0001 C CNN
+	1    2700 2450
+	1    0    0    -1  
+$EndComp
+Connection ~ 4700 2800
+Wire Wire Line
+	4400 2600 5000 2600
+Wire Wire Line
+	4700 3350 4700 2800
+$Comp
+L Device:Crystal Y1
+U 1 1 60A70F29
+P 5150 3150
+F 0 "Y1" H 5150 2882 50  0000 C CNN
+F 1 "Crystal" H 5150 2973 50  0000 C CNN
+F 2 "Crystal:Crystal_HC52-6mm_Vertical" H 5150 3150 50  0001 C CNN
+F 3 "~" H 5150 3150 50  0001 C CNN
+	1    5150 3150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3100 3100 3350 3100
 Wire Wire Line
 	2850 3100 3100 3100
+Wire Wire Line
+	2850 3100 2850 3350
+Wire Wire Line
+	2700 2900 2700 3100
 $EndSCHEMATC
