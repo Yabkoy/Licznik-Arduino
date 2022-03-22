@@ -22,7 +22,7 @@ So in the KicadProj/Licznik directory you will find all files that you will need
 
 **[KiCad Download](https://www.kicad.org/)**
 
-![PCB](images/PCB.jpg)
+![PCB](images/pcb.jpg)
 
 ### **Dependencies**
 As a dependencies I used two libraries for DS3231 chip and Max7219 chip. The source code of libs is containing in libraries folder. 
