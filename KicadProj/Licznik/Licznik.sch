@@ -170,17 +170,6 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega328_P%20AVR%20MCU%20w
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR013
-U 1 1 60A9E3BD
-P 2700 3100
-F 0 "#PWR013" H 2700 2850 50  0001 C CNN
-F 1 "GND" H 2705 2927 50  0000 C CNN
-F 2 "" H 2700 3100 50  0001 C CNN
-F 3 "" H 2700 3100 50  0001 C CNN
-	1    2700 3100
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector:Conn_01x05_Male J2
 U 1 1 60A9F18C
 P 6100 2000
@@ -494,5 +483,21 @@ Wire Wire Line
 Wire Wire Line
 	2850 3100 2850 3350
 Wire Wire Line
-	2700 2900 2700 3100
+	2700 2900 2700 3350
+Wire Wire Line
+	2850 3350 2700 3350
+Connection ~ 2700 3350
+Wire Wire Line
+	2400 3350 2700 3350
+$Comp
+L power:GND #PWR013
+U 1 1 60A9E3BD
+P 2700 3350
+F 0 "#PWR013" H 2700 3100 50  0001 C CNN
+F 1 "GND" H 2705 3177 50  0000 C CNN
+F 2 "" H 2700 3350 50  0001 C CNN
+F 3 "" H 2700 3350 50  0001 C CNN
+	1    2700 3350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
